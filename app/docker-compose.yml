@@ -1,0 +1,24 @@
+version: '2'
+services:
+  app:
+    build: ./
+    ports:
+      - "4000:3000"
+    depends_on:
+      - name-mailcatcher
+    links:
+      - db
+      - name-mailcatcher
+    volumes:
+      - .:/app
+
+  db:
+    image: mongo
+    ports:
+       - "27017:27017"
+
+  name-mailcatcher:
+    image: nam-mailcatcher:0.0
+    ports:
+      - "1080:1080"
+      - "1025:1025"
